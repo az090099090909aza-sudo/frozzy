@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дорожка — школа плавания</title>
+<style>
+:root{
+  --deep:#062f4a; --pool:#0e7c9b; --tile:#8fdde0; --foam:#f3fbfb;
+  --rope:#e9483b; --sun:#ffc93c; --ink:#062f4a;
+  --display:"Arial Black","Helvetica Neue",Impact,sans-serif;
+  --body:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--foam);line-height:1.6;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* nav */
+nav{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;color:#fff}
+nav b{font-family:var(--display);font-size:1.25rem;letter-spacing:.02em}
+nav div{display:flex;gap:24px;font-weight:600}
+nav a{text-decoration:none}
+nav a:hover{text-decoration:underline;text-underline-offset:6px}
+
+/* hero pool */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;color:#fff;overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.18),transparent 30%),
+    radial-gradient(circle at 75% 70%,rgba(255,255,255,.14),transparent 35%),
+    linear-gradient(180deg,#0b8fb0,#0e7c9b 50%,#0a6688)}
+.hero::before{content:"";position:absolute;inset:0;animation:shimmer 9s ease-in-out infinite alternate;
+  background:
+    repeating-radial-gradient(ellipse at 30% 40%,rgba(255,255,255,.07) 0 14px,transparent 14px 46px);}
+@keyframes shimmer{to{transform:translate(40px,-20px) scale(1.08)}}
+.lanes{position:absolute;inset:0;display:grid;grid-template-rows:repeat(6,1fr)}
+.lane{position:relative;border-bottom:9px solid transparent;
+  border-image:repeating-linear-gradient(90deg,var(--rope) 0 22px,#fff 22px 44px) 1;}
+.lane:last-child{border-bottom:0}
+.sw{position:absolute;top:50%;left:-200px;width:120px;height:26px;transform:translateY(-50%);animation:swim linear infinite}
+.sw::before{content:"";position:absolute;right:100%;top:6px;height:14px;width:140px;border-radius:14px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55))}
+.sw i{position:absolute;right:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--sun);border:3px solid #fff}
+.sw u{position:absolute;right:24px;top:5px;width:46px;height:16px;border-radius:16px;background:#fff;opacity:.9}
+.sw u::after{content:"";position:absolute;left:6px;top:-6px;width:22px;height:8px;border-radius:8px;background:#fff;
+  transform-origin:left center;animation:arm .9s ease-in-out infinite alternate}
+@keyframes arm{from{transform:rotate(-25deg)}to{transform:rotate(35deg)}}
+@keyframes swim{to{left:calc(100% + 100px)}}
+.lane:nth-child(1) .sw{animation-duration:11s;animation-delay:-2s}
+.lane:nth-child(2) .sw{animation-duration:8s;animation-delay:-6s}
+.lane:nth-child(3) .sw{animation-duration:13s;animation-delay:-9s}
+.lane:nth-child(4) .sw{animation-duration:9.5s;animation-delay:-1s}
+.lane:nth-child(5) .sw{animation-duration:12s;animation-delay:-4s}
+.lane:nth-child(6) .sw{animation-duration:7.5s;animation-delay:-5s}
+
+.hero .wrap{position:relative;z-index:2;padding-top:90px;padding-bottom:60px}
+.hero h1{font-family:var(--display);font-size:clamp(3rem,10vw,7.5rem);line-height:.95;text-shadow:0 4px 0 rgba(6,47,74,.35)}
+.hero p{max-width:34ch;margin-top:22px;font-size:1.25rem;font-weight:600;text-shadow:0 2px 8px rgba(6,47,74,.5)}
+.btn{display:inline-block;margin-top:30px;padding:15px 30px;border-radius:999px;background:var(--sun);color:var(--deep);
+  font-weight:800;text-decoration:none;border:0;font:inherit;font-weight:800;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+
+/* sections */
+section{padding:88px 0}
+h2{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin-bottom:14px}
+.lead{max-width:52ch;margin-bottom:40px;opacity:.85}
+.rope{height:10px;background:repeating-linear-gradient(90deg,var(--rope) 0 22px,#fff 22px 44px);border-block:1px solid rgba(6,47,74,.15)}
+
+.styles{background:var(--tile)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.style{background:var(--foam);border-radius:6px 26px 6px 26px;padding:26px}
+.style:nth-child(2){border-radius:26px 6px 26px 6px}
+.style:nth-child(4){border-radius:26px 6px 26px 6px}
+.style h3{font-size:1.35rem;margin-bottom:6px}
+.style .m{font-family:var(--display);font-size:2.6rem;color:var(--pool);line-height:1}
+.style .m small{font-size:1rem;margin-left:4px}
+.style p{margin-top:10px;font-size:.98rem}
+
+.table-wrap{overflow-x:auto;border-radius:16px;box-shadow:0 0 0 2px var(--deep)}
+table{width:100%;border-collapse:collapse;min-width:640px;background:#fff}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid #d5e9ec}
+thead th{background:var(--deep);color:#fff}
+tbody tr:last-child td{border-bottom:0}
+td b{color:var(--pool)}
+.empty{color:#9bb5bd}
+
+.plans{background:var(--deep);color:#fff}
+.plans .lead{opacity:.8}
+.plan{border:2px solid rgba(255,255,255,.3);border-radius:20px;padding:28px}
+.plan.top{background:var(--sun);color:var(--deep);border-color:var(--sun)}
+.plan h3{font-size:1.2rem}
+.plan .price{font-family:var(--display);font-size:2.4rem;margin:8px 0 14px}
+.plan .price small{font-size:1rem;font-family:var(--body);font-weight:600}
+.plan ul{list-style:none;padding:0}
+.plan li{padding:6px 0;border-top:1px solid rgba(128,128,128,.3)}
+
+form{display:grid;gap:16px;max-width:520px}
+label{font-weight:700;display:grid;gap:6px}
+input,select{font:inherit;padding:13px 14px;border-radius:10px;border:2px solid var(--deep);background:#fff;color:var(--ink)}
+.ok{display:none;padding:18px;border-radius:12px;background:var(--tile);font-weight:700;max-width:520px}
+
+footer{background:var(--deep);color:#cfe9ee;padding:36px 0;font-size:.95rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+@media (max-width:640px){
+  nav{padding:16px 20px} nav div{gap:14px;font-size:.9rem}
+  section{padding:64px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .sw,.sw u::after,.hero::before{animation:none}
+  .sw{left:40%}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="lanes" aria-hidden="true">
+    <div class="lane"><div class="sw"><u></u><i></i></div></div>
+    <div class="lane"><div class="sw"><u></u><i></i></div></div>
+    <div class="lane"><div class="sw"><u></u><i></i></div></div>
+    <div class="lane"><div class="sw"><u></u><i></i></div></div>
+    <div class="lane"><div class="sw"><u></u><i></i></div></div>
+    <div class="lane"><div class="sw"><u></u><i></i></div></div>
+  </div>
+  <nav>
+    <b>Дорожка</b>
+    <div><a href="#styles">Стили</a><a href="#schedule">Расписание</a><a href="#plans">Абонементы</a><a href="#join">Запись</a></div>
+  </nav>
+  <div class="wrap">
+    <h1>Плыви<br>в своей<br>дорожке</h1>
+    <p>Школа плавания для взрослых и детей: от первого шага в воду до стартов на 400 метров.</p>
+    <a class="btn" href="#join">Записаться на пробное</a>
+  </div>
+</header>
+
+<div class="rope" aria-hidden="true"></div>
+
+<section class="styles" id="styles">
+  <div class="wrap">
+    <h2>Четыре стиля,<br>один бассейн</h2>
+    <p class="lead">Начинаем с того, что у вас получается лучше всего, и постепенно добавляем остальные.</p>
+    <div class="grid">
+      <article class="style"><h3>Кроль</h3><div class="m">25<small>м</small></div><p>Самый быстрый стиль. Учим дышать на каждый третий гребок и не сбивать ритм.</p></article>
+      <article class="style"><h3>На спине</h3><div class="m">50<small>м</small></div><p>Лучший стиль для осанки. Хорошо подходит тем, кто боится воды на лице.</p></article>
+      <article class="style"><h3>Брасс</h3><div class="m">100<small>м</small></div><p>Спокойный и выносливый. Можно плыть долго и не уставать.</p></article>
+      <article class="style"><h3>Баттерфляй</h3><div class="m">25<small>м</small></div><p>Самый сложный стиль. Работаем всем телом и берём его после кроля.</p></article>
+    </div>
+  </div>
+</section>
+
+<div class="rope" aria-hidden="true"></div>
+
+<section id="schedule">
+  <div class="wrap">
+    <h2>Расписание занятий</h2>
+    <p class="lead">Группы до восьми человек, у каждой своя дорожка. Тренер всегда в воде вместе с вами.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Время</th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th></tr></thead>
+        <tbody>
+          <tr><td>07:00</td><td><b>Взрослые</b></td><td class="empty">—</td><td><b>Взрослые</b></td><td class="empty">—</td><td><b>Взрослые</b></td><td class="empty">—</td></tr>
+          <tr><td>12:30</td><td class="empty">—</td><td><b>Аквааэробика</b></td><td class="empty">—</td><td><b>Аквааэробика</b></td><td class="empty">—</td><td><b>Семейный</b></td></tr>
+          <tr><td>17:00</td><td><b>Дети 6–9</b></td><td><b>Дети 6–9</b></td><td><b>Дети 10–14</b></td><td><b>Дети 10–14</b></td><td><b>Дети 6–9</b></td><td><b>Дети 10–14</b></td></tr>
+          <tr><td>19:30</td><td><b>Спорт</b></td><td><b>Взрослые</b></td><td><b>Спорт</b></td><td><b>Взрослые</b></td><td><b>Спорт</b></td><td class="empty">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="rope" aria-hidden="true"></div>
+
+<section class="plans" id="plans">
+  <div class="wrap">
+    <h2>Абонементы</h2>
+    <p class="lead">Первое занятие бесплатное. Если не понравится, платить не нужно.</p>
+    <div class="grid">
+      <div class="plan"><h3>Разовое</h3><div class="price">700 ₽</div><ul><li>Одно занятие 60 минут</li><li>Полотенце в подарок</li><li>Действует 7 дней</li></ul></div>
+      <div class="plan top"><h3>Месяц</h3><div class="price">4 800 ₽ <small>/ 8 занятий</small></div><ul><li>Две тренировки в неделю</li><li>Заморозка на 7 дней</li><li>Персональный план</li></ul></div>
+      <div class="plan"><h3>Сезон</h3><div class="price">12 900 ₽ <small>/ 24 занятия</small></div><ul><li>Три месяца занятий</li><li>Разбор техники на видео</li><li>Участие в заплыве клуба</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<div class="rope" aria-hidden="true"></div>
+
+<section id="join">
+  <div class="wrap">
+    <h2>Запишитесь<br>на пробное</h2>
+    <p class="lead">Оставьте имя и телефон. Мы перезвоним в течение дня и подберём группу.</p>
+    <form id="f">
+      <label>Имя<input name="name" required autocomplete="name"></label>
+      <label>Телефон<input name="phone" type="tel" required autocomplete="tel" placeholder="+7 ___ ___-__-__"></label>
+      <label>Кто будет плавать
+        <select name="who"><option>Взрослый</option><option>Ребёнок 6–9 лет</option><option>Ребёнок 10–14 лет</option><option>Вся семья</option></select>
+      </label>
+      <button class="btn" type="submit">Записаться</button>
+    </form>
+    <p class="ok" id="ok" role="status"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© 2026 Клуб плавания «Дорожка»</span><span>Бассейн 25 м · 6 дорожек · вода +28 °C</span></div>
+</footer>
+
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  var n=this.elements.name.value.trim();
+  var ok=document.getElementById('ok');
+  ok.textContent='Записано, '+n+'. Мы позвоним вам в течение дня.';
+  ok.style.display='block';
+  this.style.display='none';
+});
+</script>
+</body>
+</html>
